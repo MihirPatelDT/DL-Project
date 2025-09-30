@@ -1,0 +1,11 @@
+# Ignore environment folder
+env/
+
+# Ignore input data
+input/
+
+# Ignore number plate images
+number_plates_image/
+
+# Ignore outputs
+outputs/
