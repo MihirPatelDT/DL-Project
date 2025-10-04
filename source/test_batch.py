@@ -20,7 +20,7 @@ print(device)
 
 # load the trained model
 model = models.CNN().to(device).eval()
-model.load_state_dict(torch.load('models/model.pth',map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('models/model.pth'))
 
 # define transforms
 transform = transforms.Compose([
@@ -37,6 +37,7 @@ cv2.imwrite(f"output/original_blurred.jpg", orig_image)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 image = transform(image).unsqueeze(0)
+image = image.to(device)
 print(image.shape)
 
 with torch.no_grad():
