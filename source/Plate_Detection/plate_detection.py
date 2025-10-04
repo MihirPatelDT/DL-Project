@@ -6,7 +6,7 @@ from ultralytics import YOLO
 import re
 from paddleocr import PaddleOCR
 
-img_path = r"testing_images/plate10.jpg"
+img_path = r"testing_images/plate11.jpg"
 
 def plate_detection_and_ocr(img_path):
     model = YOLO(r"models\license_plate_detector.pt")
@@ -29,15 +29,17 @@ def plate_detection_and_ocr(img_path):
         # Crop license plate and OCR
         plate_img = img[y1:y2, x1:x2]
         result = ocr.predict(plate_img)
+        print(result)
     
         if result:
             texts = []
-            for line in result:
-                for t in line["rec_texts"]:
-                    texts.append(t)
+            if not result[0]["rec_texts"]:
+                texts.append("No text detected")
+            else:
+                for line in result:
+                    for t in line["rec_texts"]:
+                        texts.append(t)
             plate_number = " ".join(texts)
-        else:
-            plate_number = "No text detected"
         
         print("Detected License Plate:", plate_number)
         
