@@ -9,3 +9,5 @@ number_plates_image/
 
 # Ignore outputs
 outputs/
+
+ngrok.exe

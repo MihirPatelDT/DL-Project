@@ -45,7 +45,7 @@ def process_image(input_path):
 
     # Deblur + process
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image = transform(image).unsqueeze(0)
+    image = transform(image).unsqueeze(0).to(device)
 
     with torch.no_grad():
         outputs = model(image)

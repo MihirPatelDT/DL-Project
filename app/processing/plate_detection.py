@@ -17,32 +17,6 @@ ocr = PaddleOCR(
     text_recognition_model_dir="app/models/PP-OCRv5_server_rec",
 )
 
-# def plate_detection_and_ocr(img_path):
-#     img = cv2.imread(img_path)
-#     results = yolo_model(img_path)
-
-#     boxes = results[0].boxes.xyxy.cpu().numpy()
-#     extracted_texts = []
-
-#     for x1, y1, x2, y2 in boxes:
-#         x1, y1, x2, y2 = map(int, [x1, y1, x2, y2])
-#         cropped = img[y1:y2, x1:x2]
-
-#         result = ocr.predict(cropped)
-#         text = ""
-
-#         if result:
-#             for line in result:
-#                 for word, _ in line:
-#                     text += word + " "
-
-#         text = text.strip() or "No text detected"
-#         extracted_texts.append(text)
-
-#         cv2.rectangle(img, (x1, y1), (x2, y2), (255,255,255), 2)
-#         cv2.putText(img, text, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX,
-#                     1, (255,255,255), 2, cv2.LINE_AA)
-
 def plate_detection_and_ocr(img_path):
     results = yolo_model(img_path)
 
@@ -51,10 +25,12 @@ def plate_detection_and_ocr(img_path):
 
     # YOLO returns results[0].boxes with x1, y1, x2, y2
     boxes = results[0].boxes.xyxy.cpu().numpy()  # bounding boxes
+    plate_number = "No text detected"
 
     for box in results[0].boxes.xyxy.cpu().numpy():
         x1, y1, x2, y2 = map(int, box)
-        
+        plate_number = ""
+
         # Crop license plate and OCR
         plate_img = img[y1:y2, x1:x2]
         result = ocr.predict(plate_img)
@@ -81,5 +57,5 @@ def plate_detection_and_ocr(img_path):
     final_img_path = os.path.join(output_dir, f"detected_{uuid.uuid4().hex}.jpg")
     cv2.imwrite(final_img_path, img)
 
-    final_text = " ".join(plate_number)
+    final_text = "".join(plate_number)
     return final_text, img_path
