@@ -29,7 +29,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-image_path = r"testing_images/plate11.jpg"
+image_path = r"testing_images/plate7.jpg"
 image = cv2.imread(image_path)
 orig_image = image.copy()
 orig_image = cv2.resize(orig_image, (224, 224))
