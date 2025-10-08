@@ -19,8 +19,8 @@ print(device)
 
 
 # load the trained model
-model = models.CNN().to(device).eval()
-model.load_state_dict(torch.load('models/model.pth'))
+model = models.DeepCNN().to(device).eval()
+model.load_state_dict(torch.load('models/model_deepcnn.pth'))
 
 # define transforms
 transform = transforms.Compose([
