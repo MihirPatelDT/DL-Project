@@ -18,11 +18,20 @@ device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 print("Using device:", device)
 
 # Load trained deblurring model ONCE
-model = models.CNN().to(device).eval()
-model.load_state_dict(torch.load(
-    'app/models/model.pth',
-    map_location=torch.device('cpu')
-))
+# model = models.DeepCNN.to(device).eval()
+# model.load_state_dict(torch.load(
+#     'app/models/model_deepcnn.pth',
+#     map_location=torch.device('cpu')
+# ))
+
+model = models.CNN()  # create instance
+
+# Load weights (map to the device you will use)
+state_dict = torch.load('app/models/model_cnn.pth', map_location=torch.device(device))
+model.load_state_dict(state_dict)
+
+model = model.to(device)
+model.eval()
 
 # Define preprocessing
 transform = transforms.Compose([
@@ -56,4 +65,21 @@ def process_image(input_path):
     extracted_text, final_image_path = plate_detection_and_ocr(deblurred_out)
     return final_image_path, extracted_text
 
-# output_path, text = process_image(r"testing_images\plate3.jpg")
+output_path, text = process_image(r"testing_images\plate9.jpg")
+
+# import torch
+# from . import models
+# model = models.SimpleAE()  # create instance
+# device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+# print("Using device:", device)
+# state_dict = torch.load('app/models/model_aee.pth', map_location=torch.device(device))
+
+# print(">>> Saved state_dict sample keys:")
+# for k in list(state_dict.keys())[:40]:
+#     print("  ", k)
+# print("Total saved keys:", len(state_dict.keys()))
+
+# print("\n>>> Model expected keys sample:")
+# for k in list(model.state_dict().keys())[:40]:
+#     print("  ", k)
+# print("Total model keys:", len(model.state_dict().keys()))

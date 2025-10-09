@@ -11,3 +11,7 @@ number_plates_image/
 outputs/
 
 ngrok.exe
+
+test_run/CNN
+test_run/DeepCNN
+test_run/SimpleAE
