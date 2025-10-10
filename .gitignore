@@ -15,3 +15,6 @@ ngrok.exe
 test_run/CNN
 test_run/DeepCNN
 test_run/SimpleAE
+
+testing_images/clear_images
+testing_images/blur_images
