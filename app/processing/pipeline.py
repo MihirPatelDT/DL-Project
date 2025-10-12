@@ -19,7 +19,7 @@ print("Using device:", device)
 
 # Load trained deblurring model ONCE
 # model = models.DeepCNN.to(device).eval()
-# model.load_state_dict(torch.load(
+# model.load_state_dict(torch.l oad(
 #     'app/models/model_deepcnn.pth',
 #     map_location=torch.device('cpu')
 # ))
