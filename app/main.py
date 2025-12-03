@@ -42,7 +42,8 @@ async def process(file: UploadFile = File(...)):
     
     # Your public ngrok URL (or your final domain name)
     # IMPORTANT: Do not put a trailing slash '/' at the end
-    API_BASE_URL = "https://avalyn-thermochemical-terrence.ngrok-free.dev"
+    # API_BASE_URL = "https://avalyn-thermochemical-terrence.ngrok-free.dev"
+    API_BASE_URL = "http://localhost:8000"
 
     # Combine the base URL with the static path and filename
     public_image_url = f"{API_BASE_URL}/results/{output_filename}"
